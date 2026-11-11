@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Viktorina - Bilimingizni Sinang</title>
+    <title>Super Viktorina Shousi</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
         <h1>🧠 Super Viktorina Shousi</h1>
-        <p class="subtitle">15 ta qiziqarli fan va yo'nalishlar bo'yicha o'z bilimingizni sinab ko'ring!</p>
+        <p class="subtitle">15 ta fan va yo'nalishlar bo'yicha bilimingizni sinang!</p>
 
         <!-- Fanlar Menusi -->
         <div id="category-selection">
@@ -18,32 +18,30 @@
             <div class="categories-grid">
                 <button onclick="startQuiz('Geografiya')">🌍 Geografiya</button>
                 <button onclick="startQuiz('Biologiya')">🧬 Biologiya</button>
-                <button onclick="startQuiz('Fizika')">⚡ Fizika</button>
+                <button onclick="startQuiz('Fizika')">⚡️ Fizika</button>
                 <button onclick="startQuiz('Tarix')">📜 Tarix</button>
-                <button onclick="startQuiz('Ona tili')">📚 Ona tili va Adabiyot</button>
+                <button onclick="startQuiz('Ona tili')">📚 Ona tili</button>
                 <button onclick="startQuiz('Matematika')">🔢 Matematika</button>
                 <button onclick="startQuiz('Astronomiya')">🔭 Astronomiya</button>
                 <button onclick="startQuiz('Kimyo')">🧪 Kimyo</button>
-                <button onclick="startQuiz('Ingliz tili')"> ✨ Ingliz tili</button>
+                <button onclick="startQuiz('Ingliz tili')">🇬🇧 Ingliz tili</button>
                 <button onclick="startQuiz('IT')">💻 IT va Dasturlash</button>
                 <button onclick="startQuiz('Kino')">🎬 Kino va Multfilmlar</button>
                 <button onclick="startQuiz('Musiqa')">🎸 Musiqa va San’at</button>
                 <button onclick="startQuiz('Sport')">⚽️ Sport olami</button>
                 <button onclick="startQuiz('Mantiq')">🧠 Mantiq va IQ</button>
-                <button onclick="startQuiz('Biznes')">💼 Biznes va Iqtisod</button>
+                <button onclick="startQuiz('Biznes')">💼 Biznes va Moliya</button>
             </div>
         </div>
 
-        <!-- Savollar Qismi (Boshlang'ichda yashirin turadi) -->
+        <!-- Savollar Qismi -->
         <div id="quiz-box" class="hidden">
             <div class="quiz-header">
                 <span id="category-title">Fan</span>
                 <span id="score-display">Ball: 0</span>
             </div>
-            <div id="question-text">Savol matni shu yerda chiqadi...</div>
-            <div id="options-container">
-                <!-- Variantlar avtomatik chiqadi -->
-            </div>
+            <div id="question-text">Savol matni...</div>
+            <div id="options-container"></div>
             <button id="next-btn" onclick="nextQuestion()" class="hidden">Keyingi savol →</button>
         </div>
 
@@ -56,24 +54,73 @@
     </div>
 
     <script>
-        // Vaqtincha test uchun savollar bazasi
         const questionsData = {
             "Geografiya": [
                 { q: "Yer yuzidagi eng katta okean qaysi?", options: ["Tinch okeani", "Atlantika okeani", "Hind okeani", "Shimoliy Muz okeani"], answer: 0 },
+                { q: "Dunrodagi eng uzun daryo qaysi?", options: ["Amazonka", "Nil", "Misisipi", "Sirdaryo"], answer: 1 },
                 { q: "O‘zbekistonning poytaxti qaysi shahar?", options: ["Samarqand", "Toshkent", "Buxoro", "Namangan"], answer: 1 }
+            ],
+            "Biologiya": [
+                { q: "Inson tanasidagi eng katta organ qaysi?", options: ["Yurak", "Jigar", "Teri", "Oshqozon"], answer: 2 },
+                { q: "O‘simliklar quyosh nuri yordamida qaysi jarayonni hosil qiladi?", options: ["Fotosintez", "Nafas olish", "Transpiratsiya", "Fermentatsiya"], answer: 0 },
+                { q: "Inson organizmida nechta asosiy qon guruhi mavjud?", options: ["2 ta", "4 ta", "6 ta", "8 ta"], answer: 1 }
+            ],
+            "Fizika": [
+                { q: "Vakuumda yorug‘lik tezligi taxminan qancha?", options: ["300 000 km/s", "150 000 km/s", "3 000 km/s", "1 000 km/s"], answer: 0 },
+                { q: "Elektr toki kuchi birligi nima?", options: ["Volt", "Amper", "Vatt", "Joul"], answer: 1 }],
+            "Tarix": [
+                { q: "Amir Temur qaysi yili tavallud topgan?", options: ["1336-yil", "1405-yil", "1226-yil", "1370-yil"], answer: 0 },
+                { q: "Qadimgi Misr piramidalari kimlar uchun qurilgan?", options: ["Vazirlar", "Fironlar", "Sarkardalar", "Dehqonlar"], answer: 1 }
+            ],
+            "Ona tili": [
+                { q: "Hozirgi o'zbek lotin alifbosida nechta harf bor?", options: ["26 ta", "28 ta", "29 ta", "30 ta"], answer: 2 },
+                { q: "Qaysi so'z imlosida xatolik bor?", options: ["Kitob", "Maktab", "Kofe", "Aftobus (Avtobus)"], answer: 3 }
             ],
             "Matematika": [
                 { q: "5 ni 8 ga ko‘paytiring:", options: ["35", "40", "45", "50"], answer: 1 },
                 { q: "100 ning 50% foizi nechaga teng?", options: ["25", "50", "75", "100"], answer: 1 }
+            ],
+            "Astronomiya": [
+                { q: "Quyosh sistemasidagi eng katta sayyora qaysi?", options: ["Zuxro", "Yupiter", "Mars", "Saturn"], answer: 1 },
+                { q: "Yerga eng yaqin yulduz qaysi?", options: ["Qutb yulduzi", "Sirius", "Quyosh", "Vega"], answer: 2 }
+            ],
+            "Kimyo": [
+                { q: "Suvning kimyoviy formulasi qanday?", options: ["H2O", "CO2", "O2", "NaCl"], answer: 0 },
+                { q: "Mendeleyev jadvalidagi 1-element (vodorod) belgisi nima?", options: ["H", "O", "C", "N"], answer: 0 }
+            ],
+            "Ingliz tili": [
+                { q: "\"To be\" fe'lining o'tgan zamon shakli qaysi?", options: ["Am / Is", "Was / Were", "Has / Have", "Do / Did"], answer: 1 },
+                { q: "\"Book\" so'zining tarjimasi nima?", options: ["Qalam", "Kitob", "Daftar", "Parta"], answer: 1 }
+            ],
+            "IT": [
+                { q: "HTML nima uchun ishlatiladi?", options: ["Dasturlash tili", "Veb-sahifa tuzilmasini yaratish", "Operatsion tizim", "Rasm chizish"], answer: 1 },
+                { q: "Dunyo bo'yicha eng mashhur qidiruv tizimi qaysi?", options: ["Yahoo", "Google", "Bing", "Yandex"], answer: 1 }
+            ],
+            "Kino": [
+                { q: "\"Kung Fu Panda\" multfilmidagi bosh qahramon panda nomi nima?", options: ["Shifu", "Po", "Tay Lung", "Ougvey"], answer: 1 },
+                { q: "Garri Potter o'qiydigan sehrgarlik maktabi nomi?", options: ["Xogvarts", "Narniya", "Asgard", "Kripton"], answer: 0 }
+            ],
+            "Musiqa": [
+                { q: "Klassik pianinoda nechta klavish bor?", options: ["68 ta", "88 ta", "100 ta", "75 ta"], answer: 1 },
+                { q: "Skripka qaysi cholg'u turiga kiradi?", options: ["Damli", "Torli (kamonchali)", "Zarbli", "Pnevmatik"], answer: 1 }
+            ],
+            "Sport": [
+                { q: "Futbol o'yinida maydonda bitta jamoadan nechta o'yinchi harakat qiladi?", options: ["9 ta", "10 ta", "11 ta", "12 ta"], answer: 2 },
+                { q: "Olimpiada o'yinlari ramzidagi halqalar soni nechta?", options: ["3 ta", "4 ta", "5 ta", "6 ta"], answer: 2 }
+            ],
+            "Mantiq": [
+                { q: "Akangizning opasi sizga kim bo'ladi?", options: ["Ammangiz", "Oshnangiz", "Opangiz (yoki singlingiz)", "Xolangiz"], answer: 2 },
+                { q: "Qaysi idishga ovqat to'ldirib bo'lmaydi?", options: ["Tarelka", "Kosa", "Tubeshigi teshik idishga", "Stakan"], answer: 2 }
+            ],
+            "Biznes": [
+                { q: "Apple kompaniyasining asoschilaridan biri kim?", options: ["Bill Geyts", "Stiv Jobs", "Ilon Mask", "Mark Sukerberg"], answer: 1 },
+                { q: "O'zbekistondagi mashhur elektron tijorat platformasi?", options: ["Uzum Market", "Netflix", "Spotify", "Steam"], answer: 0 }
             ]
-            // Qolgan fanlar savollarini keyingi qadamda qo'shamiz!
         };
 
         let currentCategory = "";
         let currentQuestionIndex = 0;
-        let score = 0;
-
-        function startQuiz(category) {
+        let score = 0;function startQuiz(category) {
             currentCategory = category;
             currentQuestionIndex = 0;
             score = 0;
@@ -83,7 +130,9 @@
             document.getElementById('category-title').innerText = category;
             
             loadQuestion();
-        }function loadQuestion() {
+        }
+
+        function loadQuestion() {
             let questions = questionsData[currentCategory];
             if (!questions || currentQuestionIndex >= questions.length) {
                 showResult();
