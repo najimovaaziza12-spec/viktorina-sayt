@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Viktorina - Bilimingizni Sinang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🧠 Super Viktorina Shousi</h1>
+        <p class="subtitle">15 ta qiziqarli fan va yo'nalishlar bo'yicha o'z bilimingizni sinab ko'ring!</p>
+
+        <!-- Fanlar Menusi -->
+        <div id="category-selection">
+            <h2>Fanlardan birini tanlang:</h2>
+            <div class="categories-grid">
+                <button onclick="startQuiz('Geografiya')">🌍 Geografiya</button>
+                <button onclick="startQuiz('Biologiya')">🧬 Biologiya</button>
+                <button onclick="startQuiz('Fizika')">⚡ Fizika</button>
+                <button onclick="startQuiz('Tarix')">📜 Tarix</button>
+                <button onclick="startQuiz('Ona tili')">📚 Ona tili va Adabiyot</button>
+                <button onclick="startQuiz('Matematika')">🔢 Matematika</button>
+                <button onclick="startQuiz('Astronomiya')">🔭 Astronomiya</button>
+                <button onclick="startQuiz('Kimyo')">🧪 Kimyo</button>
+                <button onclick="startQuiz('Ingliz tili')"> ✨ Ingliz tili</button>
+                <button onclick="startQuiz('IT')">💻 IT va Dasturlash</button>
+                <button onclick="startQuiz('Kino')">🎬 Kino va Multfilmlar</button>
+                <button onclick="startQuiz('Musiqa')">🎸 Musiqa va San’at</button>
+                <button onclick="startQuiz('Sport')">⚽️ Sport olami</button>
+                <button onclick="startQuiz('Mantiq')">🧠 Mantiq va IQ</button>
+                <button onclick="startQuiz('Biznes')">💼 Biznes va Iqtisod</button>
+            </div>
+        </div>
+
+        <!-- Savollar Qismi (Boshlang'ichda yashirin turadi) -->
+        <div id="quiz-box" class="hidden">
+            <div class="quiz-header">
+                <span id="category-title">Fan</span>
+                <span id="score-display">Ball: 0</span>
+            </div>
+            <div id="question-text">Savol matni shu yerda chiqadi...</div>
+            <div id="options-container">
+                <!-- Variantlar avtomatik chiqadi -->
+            </div>
+            <button id="next-btn" onclick="nextQuestion()" class="hidden">Keyingi savol →</button>
+        </div>
+
+        <!-- Natija Qismi -->
+        <div id="result-box" class="hidden">
+            <h2>🎉 Tabriklaymiz!</h2>
+            <p id="final-score">Sizning natijangiz: 0</p>
+            <button onclick="location.reload()" class="btn-restart">Bosh sahifaga qaytish</button>
+        </div>
+    </div>
+
+    <script>
+        // Vaqtincha test uchun savollar bazasi
+        const questionsData = {
+            "Geografiya": [
+                { q: "Yer yuzidagi eng katta okean qaysi?", options: ["Tinch okeani", "Atlantika okeani", "Hind okeani", "Shimoliy Muz okeani"], answer: 0 },
+                { q: "O‘zbekistonning poytaxti qaysi shahar?", options: ["Samarqand", "Toshkent", "Buxoro", "Namangan"], answer: 1 }
+            ],
+            "Matematika": [
+                { q: "5 ni 8 ga ko‘paytiring:", options: ["35", "40", "45", "50"], answer: 1 },
+                { q: "100 ning 50% foizi nechaga teng?", options: ["25", "50", "75", "100"], answer: 1 }
+            ]
+            // Qolgan fanlar savollarini keyingi qadamda qo'shamiz!
+        };
+
+        let currentCategory = "";
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz(category) {
+            currentCategory = category;
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            document.getElementById('category-selection').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('category-title').innerText = category;
+            
+            loadQuestion();
+        }function loadQuestion() {
+            let questions = questionsData[currentCategory];
+            if (!questions || currentQuestionIndex >= questions.length) {
+                showResult();
+                return;
+            }
+
+            let qData = questions[currentQuestionIndex];
+            document.getElementById('question-text').innerText = qData.q;
+            
+            let optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = "";
+            
+            qData.options.forEach((opt, index) => {
+                let btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.className = "option-btn";
+                btn.onclick = () => checkAnswer(index, qData.answer);
+                optionsContainer.appendChild(btn);
+            });
+            document.getElementById('next-btn').classList.add('hidden');
+        }
+
+        function checkAnswer(selected, correct) {
+            let buttons = document.querySelectorAll('.option-btn');
+            if (selected === correct) {
+                buttons[selected].style.background = '#22c55e';
+                score += 10;
+                document.getElementById('score-display').innerText = "Ball: " + score;
+            } else {
+                buttons[selected].style.background = '#ef4444';
+                buttons[correct].style.background = '#22c55e';
+            }
+            
+            buttons.forEach(btn => btn.disabled = true);
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('result-box').classList.remove('hidden');
+            document.getElementById('final-score').innerText = Sizning to'plagan umumiy ballingiz: ${score};
+        }
+    </script>
+</body>
+</html>
